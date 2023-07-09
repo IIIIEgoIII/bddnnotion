@@ -1,57 +1,84 @@
-<html> 
+<!DOCTYPE html>
+<html lang="en">
 <head>
-    <title>Greeting Message</title> 
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quote</title>
+
     <style>
-#lbl {
-    font-family: monospace;
-    font-size: xx-large;
-    color: #626262;
-    padding: 5px;
-    border: 1px solid #ececec;
-    text-align: center;
-    line-height: 1.5;
-    height:85%
 
+        .widget {
+            padding: 5px 5px ;
+            color: #000000;
+            text-align: center;
+                max-width: 95%;
+            margin: auto;
+            font-variant-caps: petite-caps;
+            font-size: 2em;
 
+        }
+
+        div {
+             width: 95%;
+             min-height: 100px;
+
+            background:
+                linear-gradient(to right, black 4px, transparent 4px) 0 0,
+                linear-gradient(to right, black 4px, transparent 4px) 0 100%,
+                linear-gradient(to left, black 4px, transparent 4px) 100% 0,
+                linear-gradient(to left, black 4px, transparent 4px) 100% 100%,
+                linear-gradient(to bottom, black 4px, transparent 4px) 0 0,
+                linear-gradient(to bottom, black 4px, transparent 4px) 100% 0,
+                linear-gradient(to top, black 4px, transparent 4px) 0 100%,
+                linear-gradient(to top, black 4px, transparent 4px) 100% 100%;
+
+            background-repeat: no-repeat;
+            background-size: 20px 20px;
 }
-#date{
-    font-size:large;
-}
-body{
-    background-color: aliceblue;
-}
+
+     
     </style>
 </head>
 <body>
-    <div id="lbl"></div>
-</body>
+
+    <div class="widget" id="widget"></div>
+
 
 <script>
-    var weekday = new Array(7);
-    weekday[0] = "Sunday";
-    weekday[1] = "Monday";
-    weekday[2] = "Tuesday";
-    weekday[3] = "Wednesday";
-    weekday[4] = "Thursday";
-    weekday[5] = "Friday";
-    weekday[6] = "Saturday";
 
-    
-    var today = new Date();
-    var hrs = today.getHours();
-    var dayOfWeek = weekday[today.getDay()];
-    var date = dayOfWeek+" " + today.getDate() + "/" +(today.getMonth()+1) +'/'+today.getFullYear()  ;
+quotes=[
+“Dime y lo olvido, enséñame y lo recuerdo, involúcrame y lo aprendo”. (Benjamin Franklin)
+“Lo que con mucho trabajo se adquiere, más se ama” (Aristóteles)
+"Vive como si fueses a morir mañana. Aprende como si fueses a vivir siempre" (Mahatma Gandhi)
+"Cree en ti mismo y en lo que eres. Sé consciente de que hay algo en tu interior que es más grande que cualquier obstáculo" (Christian D. Larson)
+“Si no persigues lo que quieres, nunca lo tendrás. Si no vas hacia delante, siempre estarás en el mismo lugar" (Nora Roberts)
+"No juzgues cada día por lo que cosechas, sino por las semillas que plantas" (Robert Louis Stevenson)
+“Hay una fuerza motriz más poderosa que el vapor, la electricidad y la energía atómica: la voluntad” (Albert Einstein)
+“Siempre se puede, cuando se quiere” (José Luis Sampedro)
+“Solo existen dos días en el año en que no se puede hacer nada. Uno se llama ayer y otro mañana. Por lo tanto hoy es el día ideal para amar, crecer, hacer y, principalmente, vivir” (Dalai Lama)
+"Nuestra mayor debilidad reside en rendirnos. La forma más segura de tener éxito es intentarlo una vez más". (Thomas A. Edison)
+"No. No lo intentes. Hazlo o no lo hagas. Pero no lo intentes" (Yoda) Star Wars El Imperio Contraataca
+];
 
-    var greet;
+const INTERVAL = 86400000;
 
-    if (hrs < 12)
-        greet = 'Good Morning  ';
-    else if (hrs >= 12 && hrs <= 17)
-        greet = 'Good Afternoon ';
-    else if (hrs >= 17 && hrs <= 24)
-        greet = 'Good Evening  ';
+function dispalyQuote(){
 
-    document.getElementById('lbl').innerHTML =
-        greet+=`<div id="date"> It's ${date}</div>`;
-</script> 
+    document.getElementById('widget').innerHTML =quotes[0];
+    quotes.forEach((quote, i) => {
+        setTimeout(() => {
+            document.getElementById('widget').innerHTML =quote;
+        }, i * INTERVAL);  
+    });
+    }
+
+    function dispalyWidget() {
+        dispalyQuote();
+        setTimeout(dispalyWidget, quotes.length*INTERVAL);
+    }
+    dispalyWidget()
+
+</script>
+
+</body>
 </html>
